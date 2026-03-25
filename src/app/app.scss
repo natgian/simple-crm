@@ -1,18 +1,75 @@
+/*------ */
+/* RESET */
+/*------ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/*------ */
+
 .mat-drawer-container {
   height: 100vh;
 }
 
 .menu-icon {
-  cursor: pointer;
   background-color: transparent;
   border: none;
+  margin-right: 4px;
+  color: var(--mat-sys-primary);
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+mat-nav-list {
+  padding-right: 16px;
 }
 
 .sidenav {
   width: 300px;
-  padding: 16px;
+  border-right: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 0;
 }
 
 .toolbar-row {
-  background-color: blueviolet;
+  color: var(--mat-sys-primary);
+  background: var(--mat-sys-primary-container);
+}
+
+.logo-container {
+  height: var(--mat-toolbar-standard-height, 64px);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  display: flex;
+  align-items: center;
+  padding-left: 32px;
+}
+
+.content-container {
+  padding: 24px 64px;
+  font-size: 16px;
 }

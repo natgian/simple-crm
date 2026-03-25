@@ -1,15 +1,36 @@
 <mat-drawer-container class="mat-drawer-container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="true">
-    <p>PLATZ FÜR LOGO</p>
+    <div class="logo-container">PLATZ FÜR LOGO</div>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="" routerLinkActive="active" tabindex="2">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        <span matListItemTitle>Dashboard</span>
+      </a>
+
+      <a mat-list-item routerLink="user" routerLinkActive="active" tabindex="3">
+        <mat-icon matListItemIcon>person</mat-icon>
+        <span matListItemTitle>User</span>
+      </a>
+    </mat-nav-list>
   </mat-drawer>
 
-  <div class="sidenav-content">
+  <div class="toolbar-container">
     <mat-toolbar class="toolbar-row">
-      <button class="menu-icon" aria-label="icon-button with menu icon" (click)="drawer.toggle()">
+      <button
+        class="menu-icon"
+        aria-label="icon-button with menu icon"
+        (click)="drawer.toggle()"
+        tabindex="1"
+      >
         <mat-icon>menu</mat-icon>
       </button>
 
       <span>Simple CRM</span>
     </mat-toolbar>
+
+    <div class="content-container">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </mat-drawer-container>
