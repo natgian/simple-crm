@@ -2,7 +2,6 @@ import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import {
   MatDialogRef,
   MatDialogActions,
-  MatDialogClose,
   MatDialogContent,
   MatDialogTitle,
 } from '@angular/material/dialog';
@@ -11,12 +10,12 @@ import { FormBuilder, Validators, FormGroup, ReactiveFormsModule } from '@angula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { provideNativeDateAdapter } from '@angular/material/core';
-import { User } from '../../interfaces/user.interface';
+import { provideNativeDateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { formatDate } from '../../utils/formatDate';
 
 @Component({
   selector: 'app-dialog-add-user',
-  providers: [provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter(), { provide: MAT_DATE_LOCALE, useValue: 'de-DE' }],
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -51,7 +50,10 @@ export class DialogAddUser {
 
   onSubmit(): void {
     if (this.userForm.valid) {
-      this.dialogRef.close(this.userForm.value as User);
+      const formValue = this.userForm.value;
+      const birthDate = formatDate(formValue.birthDate);
+
+      this.dialogRef.close({ ...formValue, birthDate });
     }
   }
 }
