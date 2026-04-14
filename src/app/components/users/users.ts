@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUser } from '../dialog-add-user/dialog-add-user';
 import { User } from '../../interfaces/user.interface';
 import { UserService } from '../../services/user.service';
+import { UserModel } from '../../models/user.model';
 
 @Component({
   selector: 'app-user',
@@ -22,9 +23,9 @@ export class Users {
       data: {},
     });
 
-    dialogRef.afterClosed().subscribe((newUser: User) => {
+    dialogRef.afterClosed().subscribe(async (newUser: UserModel) => {
       if (newUser !== undefined) {
-        this.userService.saveUser(newUser);
+        await this.userService.saveUser(newUser);
       }
     });
   }
