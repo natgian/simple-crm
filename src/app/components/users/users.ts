@@ -19,10 +19,18 @@ export class Users {
   supabaseService = inject(SupabaseService);
   users = this.supabaseService.userList;
 
-  displayedColumns: string[] = ['first-name', 'birth-date', 'postal-code', 'city'];
+  displayedColumns: string[] = ['name', 'email', 'birth-date', 'city', 'delete-button'];
   dataSource = this.users;
 
   openDialog(): void {
     this.dialog.open(DialogAddUser);
+  }
+
+  onDeleteUser(id: number) {
+    this.supabaseService.deleteUser(id);
+  }
+
+  goToDetail(id: number) {
+    console.log(id);
   }
 }

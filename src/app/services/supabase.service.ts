@@ -25,7 +25,8 @@ export class SupabaseService {
             this.userList.update((list) => [...list, newUser]);
             break;
           case 'DELETE':
-            console.log('user deleted');
+            const deletedUserId = payload.old['id'];
+            this.userList.update((list) => list.filter((user) => user.id !== deletedUserId));
             break;
           case 'UPDATE':
             console.log('user updated');
@@ -40,17 +41,33 @@ export class SupabaseService {
   }
 
   async getAllUsers() {
-    const { data: users, error } = await this.supabase.from('users').select('*');
-    if (error) throw error;
-
-    this.userList.set(users?.map((user) => UserModel.toCamelCase(user)) ?? []);
+    try {
+      const { data: users, error } = await this.supabase.from('users').select('*');
+      if (error) throw error;
+      this.userList.set(users?.map((user) => UserModel.toCamelCase(user)) ?? []);
+    } catch (error) {
+      console.error('Error while loading the users', error);
+    }
   }
 
   async addUser(user: UserModel) {
-    const userData = user.toSnakeCase();
-    const { data, error } = await this.supabase.from('users').insert([userData]).select();
+    try {
+      const userData = user.toSnakeCase();
+      const { data, error } = await this.supabase.from('users').insert([userData]).select();
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      console.error('Error while adding user', error);
+      throw error;
+    }
+  }
 
-    if (error) throw error;
-    return data;
+  async deleteUser(id: number) {
+    try {
+      const { error } = await this.supabase.from('users').delete().eq('id', id);
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error while trying to delete the user', error);
+    }
   }
 }
