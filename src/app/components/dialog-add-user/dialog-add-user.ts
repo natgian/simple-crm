@@ -43,6 +43,10 @@ export class DialogAddUser {
   userForm: FormGroup = this.fb.group({
     firstName: ['', [Validators.required, Validators.minLength(2)]],
     lastName: ['', [Validators.required, Validators.minLength(2)]],
+    email: [
+      '',
+      [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)],
+    ],
     birthDate: [null, [Validators.required]],
     address: ['', [Validators.required, Validators.minLength(3)]],
     postalCode: ['', [Validators.required, Validators.pattern(/^\d{4,5}$/)]],
