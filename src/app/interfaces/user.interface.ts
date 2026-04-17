@@ -6,3 +6,12 @@ export interface User {
   postalCode: string;
   city: string;
 }
+
+export interface UserDB {
+  first_name: string;
+  last_name: string;
+  birth_date: string;
+  address: string;
+  postal_code: string;
+  city: string;
+}
