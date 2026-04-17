@@ -8,7 +8,7 @@
   <!-- Birth Date Column -->
   <ng-container matColumnDef="birth-date">
     <th mat-header-cell *matHeaderCellDef>Birth Date</th>
-    <td mat-cell *matCellDef="let element">{{ element.birthDate | date: 'dd.MM.yyyy' }}</td>
+    <td mat-cell *matCellDef="let element">{{ element.birthDate | date }}</td>
   </ng-container>
 
   <!-- Postal Code Column -->

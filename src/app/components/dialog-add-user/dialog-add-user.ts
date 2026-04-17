@@ -11,13 +11,18 @@ import { FormBuilder, Validators, FormGroup, ReactiveFormsModule } from '@angula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { provideNativeDateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { formatDate } from '../../utils/formatDate';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MY_DATE_FORMATS } from '../../utils/formatDate';
+import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-dialog-add-user',
-  providers: [provideNativeDateAdapter(), { provide: MAT_DATE_LOCALE, useValue: 'de-DE' }],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    provideLuxonDateAdapter(),
+  ],
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -77,8 +82,7 @@ export class DialogAddUser {
 
   getFormData() {
     const formValue = this.userForm.getRawValue();
-    const birthDate = formatDate(formValue.birthDate);
-    const newUser = { ...formValue, birthDate };
+    const newUser = { ...formValue };
     return newUser;
   }
 }
