@@ -5,16 +5,16 @@
     <td mat-cell *matCellDef="let element">{{ element.fullName }}</td>
   </ng-container>
 
+  <!-- Postal Code Column -->
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef>E-Mail</th>
+    <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+  </ng-container>
+
   <!-- Birth Date Column -->
   <ng-container matColumnDef="birth-date">
     <th mat-header-cell *matHeaderCellDef>Birth Date</th>
     <td mat-cell *matCellDef="let element">{{ element.birthDate | date }}</td>
-  </ng-container>
-
-  <!-- Postal Code Column -->
-  <ng-container matColumnDef="postal-code">
-    <th mat-header-cell *matHeaderCellDef>Postal Code</th>
-    <td mat-cell *matCellDef="let element">{{ element.postalCode }}</td>
   </ng-container>
 
   <!-- City Column -->
@@ -24,7 +24,12 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="onUserClick(row.id)"
+    class="clickable-user-row"
+  ></tr>
 </table>
 
 <button
