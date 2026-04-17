@@ -4,9 +4,44 @@
   right: 64px;
 }
 
+.mat-column-name {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 table {
-  th,
-  tr {
+  border-collapse: collapse; // Garantiert absolut gerade Linien
+  width: 100%;
+
+  th {
     font-size: 16px;
+  }
+}
+
+.clickable-user-row {
+  cursor: pointer;
+
+  td {
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 12px;
+    transition: background-color 0.2s;
+    background-clip: padding-box;
+  }
+
+  &:hover td {
+    background-color: rgba(255, 255, 255, 0.05);
+
+    &:first-child {
+      border-top-left-radius: 9999px;
+      border-bottom-left-radius: 9999px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 9999px;
+      border-bottom-right-radius: 9999px;
+    }
   }
 }
