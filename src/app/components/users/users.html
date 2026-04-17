@@ -1,6 +1,6 @@
 <table mat-table [dataSource]="users()" class="mat-elevation-z8">
   <!-- Name Column -->
-  <ng-container matColumnDef="first-name">
+  <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
     <td mat-cell *matCellDef="let element">{{ element.fullName }}</td>
   </ng-container>
@@ -23,12 +23,25 @@
     <td mat-cell *matCellDef="let element">{{ element.city }}</td>
   </ng-container>
 
+  <ng-container matColumnDef="delete-button">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button
+        matMiniFab
+        aria-label="icon button with a delete icon"
+        (click)="$event.stopPropagation(); onDeleteUser(element.id)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr
     mat-row
     *matRowDef="let row; columns: displayedColumns"
-    (click)="onUserClick(row.id)"
     class="clickable-user-row"
+    (click)="goToDetail(row.id)"
   ></tr>
 </table>
 
