@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { createClient } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 import { UserModel } from '../models/user.model';
+import { UserDB } from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +21,8 @@ export class SupabaseService {
       .on('postgres_changes', { event: '*', schema: 'public', table: 'users' }, (payload) => {
         switch (payload.eventType) {
           case 'INSERT':
-            const newUser = new UserModel(payload.new);
-            console.log('added new user:', newUser);
-
+            const newUser = UserModel.toCamelCase(payload.new as UserDB);
+            this.userList.update((list) => [...list, newUser]);
             break;
           case 'DELETE':
             console.log('user deleted');
