@@ -1,4 +1,4 @@
-import { User } from '../interfaces/user.interface';
+import { User, UserDB } from '../interfaces/user.interface';
 
 export class UserModel implements User {
   firstName: string;
@@ -17,7 +17,7 @@ export class UserModel implements User {
     this.city = data.city ?? '';
   }
 
-  formatForDB() {
+  toSnakeCase() {
     return {
       first_name: this.firstName,
       last_name: this.lastName,
@@ -26,5 +26,20 @@ export class UserModel implements User {
       postal_code: this.postalCode,
       city: this.city,
     };
+  }
+
+  static toCamelCase(data: UserDB): UserModel {
+    return new UserModel({
+      firstName: data.first_name,
+      lastName: data.last_name,
+      birthDate: data.birth_date,
+      address: data.address,
+      postalCode: data.postal_code,
+      city: data.city,
+    });
+  }
+
+  get fullName(): string {
+    return `${this.firstName} ${this.lastName}`;
   }
 }
