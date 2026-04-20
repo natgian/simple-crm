@@ -41,7 +41,7 @@
     mat-row
     *matRowDef="let row; columns: displayedColumns"
     class="clickable-user-row"
-    (click)="goToDetail(row.id)"
+    [routerLink]="['/users', row.id]"
   ></tr>
 </table>
 

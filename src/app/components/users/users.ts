@@ -7,10 +7,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddUser } from '../dialog-add-user/dialog-add-user';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user',
-  imports: [MatButtonModule, MatIcon, MatTooltipModule, MatTableModule, DatePipe],
+  imports: [MatButtonModule, MatIcon, MatTooltipModule, MatTableModule, DatePipe, RouterLink],
   templateUrl: './users.html',
   styleUrl: './users.scss',
 })

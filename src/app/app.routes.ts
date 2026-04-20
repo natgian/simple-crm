@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Dashboard } from './components/dashboard/dashboard';
 import { Users } from './components/users/users';
+import { UserDetail } from './components/user-detail/user-detail';
 
 export const routes: Routes = [
   {
@@ -14,5 +15,9 @@ export const routes: Routes = [
   {
     path: 'users',
     component: Users,
+  },
+  {
+    path: 'users/:id',
+    component: UserDetail,
   },
 ];
