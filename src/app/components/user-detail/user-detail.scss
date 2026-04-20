@@ -1,0 +1,38 @@
+.user-profile-header {
+  background: linear-gradient(135deg, #003838, #004f4f);
+  max-width: 1200px;
+  border-radius: 12px 12px 0 0;
+}
+
+mat-card-header {
+  align-items: center;
+
+  .user-profile-container {
+    width: 100px;
+    height: 100px;
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.user-details-container {
+  padding-top: 16px;
+  max-width: 1200px;
+  border-radius: 0 0 12px 12px;
+}
+
+.user-details {
+  mat-card-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+
+    svg {
+      fill: #00dddd;
+    }
+  }
+}
