@@ -12,6 +12,7 @@ export class SupabaseService {
   userChannels;
 
   userList = signal<UserModel[]>([]);
+  user = signal<UserModel | null>(null);
 
   constructor() {
     this.getAllUsers().catch((error) => console.error('Error loading users:', error));
@@ -47,6 +48,24 @@ export class SupabaseService {
       this.userList.set(users?.map((user) => UserModel.toCamelCase(user)) ?? []);
     } catch (error) {
       console.error('Error while loading the users', error);
+    }
+  }
+
+  async getSingleUser(id: string) {
+    try {
+      const { data: user, error } = await this.supabase
+        .from('users')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      this.user.set(UserModel.toCamelCase(user));
+
+      if (error) throw error;
+
+      console.log(this.user());
+    } catch (error) {
+      console.error('Error while loading single user', error);
     }
   }
 
