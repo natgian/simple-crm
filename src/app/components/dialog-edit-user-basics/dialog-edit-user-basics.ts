@@ -4,6 +4,7 @@ import {
   MatDialogActions,
   MatDialogContent,
   MatDialogTitle,
+  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +12,7 @@ import { FormBuilder, Validators, FormGroup, ReactiveFormsModule } from '@angula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { UserService } from '../../services/user.service';
+import { UserModel } from '../../models/user.model';
 
 @Component({
   selector: 'app-dialog-edit-user-basics',
@@ -29,14 +31,16 @@ import { UserService } from '../../services/user.service';
   styleUrl: './dialog-edit-user-basics.scss',
 })
 export class DialogEditUserBasics {
+  readonly data = inject<UserModel>(MAT_DIALOG_DATA);
+  private userService = inject(UserService);
   readonly dialogRef = inject(MatDialogRef<DialogEditUserBasics>);
   private fb = inject(FormBuilder);
-  private userService = inject(UserService);
+
   public loading = false;
 
   userForm: FormGroup = this.fb.group({
-    firstName: ['', [Validators.required, Validators.minLength(2)]],
-    lastName: ['', [Validators.required, Validators.minLength(2)]],
+    firstName: [this.data.firstName, [Validators.required, Validators.minLength(2)]],
+    lastName: [this.data.lastName, [Validators.required, Validators.minLength(2)]],
   });
 
   onNoClick(): void {

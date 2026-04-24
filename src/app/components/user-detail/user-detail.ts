@@ -35,17 +35,18 @@ export class UserDetail {
     this.userId = this.route.snapshot.paramMap.get('id');
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     if (this.userId) {
-      this.supabaseService.getSingleUser(this.userId);
+      await this.supabaseService.getSingleUser(this.userId);
+      console.log(this.currentUser());
     }
   }
 
   openEditBasicsDialog(): void {
-    this.dialog.open(DialogEditUserBasics);
+    this.dialog.open(DialogEditUserBasics, { data: this.currentUser() });
   }
 
   openEditDetailsDialog(): void {
-    this.dialog.open(DialogEditUserDetails);
+    this.dialog.open(DialogEditUserDetails, { data: this.currentUser() });
   }
 }

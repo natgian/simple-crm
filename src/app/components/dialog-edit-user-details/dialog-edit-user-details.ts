@@ -4,6 +4,7 @@ import {
   MatDialogActions,
   MatDialogContent,
   MatDialogTitle,
+  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,6 +16,7 @@ import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MY_DATE_FORMATS } from '../../utils/formatDate';
 import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { UserService } from '../../services/user.service';
+import { UserModel } from '../../models/user.model';
 
 @Component({
   selector: 'app-dialog-edit-user-details',
@@ -40,22 +42,21 @@ import { UserService } from '../../services/user.service';
   styleUrl: './dialog-edit-user-details.scss',
 })
 export class DialogEditUserDetails {
+  readonly data = inject<UserModel>(MAT_DIALOG_DATA);
   readonly dialogRef = inject(MatDialogRef<DialogEditUserDetails>);
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
   public loading = false;
 
   userForm: FormGroup = this.fb.group({
-    firstName: ['', [Validators.required, Validators.minLength(2)]],
-    lastName: ['', [Validators.required, Validators.minLength(2)]],
     email: [
-      '',
+      this.data.email,
       [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)],
     ],
-    birthDate: [null, [Validators.required]],
-    address: ['', [Validators.required, Validators.minLength(3)]],
-    postalCode: ['', [Validators.required, Validators.pattern(/^\d{4,5}$/)]],
-    city: ['', [Validators.required, Validators.minLength(2)]],
+    birthDate: [this.data.birthDate, [Validators.required]],
+    address: [this.data.address, [Validators.required, Validators.minLength(3)]],
+    postalCode: [this.data.postalCode, [Validators.required, Validators.pattern(/^\d{4,5}$/)]],
+    city: [this.data.city, [Validators.required, Validators.minLength(2)]],
   });
 
   onNoClick(): void {
