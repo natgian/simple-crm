@@ -1,10 +1,23 @@
 .user-profile-header {
-  background: linear-gradient(135deg, #003838, #004f4f);
-  border-radius: 12px 12px 0 0;
+  background: linear-gradient(135deg, #004f4f, #00dddd);
+  margin-bottom: 16px;
+}
+
+mat-card {
+  position: relative;
+  .menu-btn {
+    background-color: transparent;
+    border: transparent;
+    position: absolute;
+    top: 32px;
+    right: 16px;
+    z-index: 1;
+  }
 }
 
 mat-card-header {
   align-items: center;
+  padding: 120px 16px 0 16px;
 
   .user-profile-container {
     width: 100px;
@@ -19,17 +32,16 @@ mat-card-header {
 
 .user-details-container {
   padding-top: 16px;
-  border-radius: 0 0 12px 12px;
 }
 
 .user-details {
   mat-card-content {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 16px;
+    gap: 16px;
+    padding: 20px 16px;
 
-    svg {
+    mat-icon {
       fill: #00dddd;
     }
   }
