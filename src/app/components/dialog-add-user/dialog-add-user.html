@@ -3,10 +3,10 @@
 }
 
 <h2 mat-dialog-title>Add User</h2>
-<mat-dialog-content>
+<mat-dialog-content class="mt-16">
   <form [formGroup]="userForm" id="userForm">
-    <p>Name:</p>
-    <div class="fields-container">
+    <span>Name:</span>
+    <div>
       <mat-form-field appearance="outline" class="mr-16">
         <mat-label>First Name</mat-label>
         <input matInput formControlName="firstName" />
@@ -19,8 +19,8 @@
       </mat-form-field>
     </div>
 
-    <p>Email:</p>
-    <div class="fields-container">
+    <span>Email:</span>
+    <div>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" />
@@ -28,9 +28,9 @@
       </mat-form-field>
     </div>
 
-    <p>Birth Date:</p>
+    <span>Birth Date:</span>
     <!-- Birth Date -->
-    <div class="fields-container">
+    <div>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Birth Date</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="birthDate" />
@@ -40,9 +40,9 @@
       </mat-form-field>
     </div>
 
-    <p>Address:</p>
+    <span>Address:</span>
     <!-- Address -->
-    <div class="fields-container">
+    <div>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Address</mat-label>
         <input matInput formControlName="address" />
@@ -51,7 +51,7 @@
     </div>
 
     <!-- Postal Code & City -->
-    <div class="fields-container">
+    <div>
       <mat-form-field appearance="outline" class="mr-16">
         <mat-label>Postal Code</mat-label>
         <input matInput formControlName="postalCode" />
