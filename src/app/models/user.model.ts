@@ -1,7 +1,7 @@
 import { User, UserDB } from '../interfaces/user.interface';
 
 export class UserModel implements User {
-  id?: number;
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
