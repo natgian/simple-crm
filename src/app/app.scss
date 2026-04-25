@@ -34,6 +34,10 @@ mat-nav-list {
   display: flex;
   align-items: center;
   padding-left: 32px;
+
+  img {
+    width: 100px;
+  }
 }
 
 .content-container {
