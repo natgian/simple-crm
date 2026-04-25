@@ -27,19 +27,12 @@ import { DialogEditUserDetails } from '../dialog-edit-user-details/dialog-edit-u
 export class UserDetail {
   readonly dialog = inject(MatDialog);
   private route = inject(ActivatedRoute);
-  private userId: string | null;
   supabaseService = inject(SupabaseService);
   currentUser = this.supabaseService.user;
 
-  constructor() {
-    this.userId = this.route.snapshot.paramMap.get('id');
-  }
-
-  async ngOnInit() {
-    if (this.userId) {
-      await this.supabaseService.getSingleUser(this.userId);
-      console.log(this.currentUser());
-    }
+  ngOnInit() {
+    const userId = this.route.snapshot.paramMap.get('id');
+    if (userId) this.supabaseService.getSingleUser(userId);
   }
 
   openEditBasicsDialog(): void {

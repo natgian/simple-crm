@@ -54,5 +54,5 @@
 
 <mat-dialog-actions>
   <button matButton (click)="onNoClick()">Cancel</button>
-  <button matButton="filled" [disabled]="userForm.invalid">Save</button>
+  <button matButton="filled" [disabled]="userForm.invalid" (click)="onSubmit()">Save</button>
 </mat-dialog-actions>

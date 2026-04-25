@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { createClient } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 import { UserModel } from '../models/user.model';
-import { UserDB } from '../interfaces/user.interface';
+import { User, UserDB } from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +30,11 @@ export class SupabaseService {
             this.userList.update((list) => list.filter((user) => user.id !== deletedUserId));
             break;
           case 'UPDATE':
-            console.log('user updated');
+            const updatedUser = UserModel.toCamelCase(payload.new as UserDB);
+            this.user.set(updatedUser);
+            this.userList.update((list) =>
+              list.map((user) => (user.id === updatedUser.id ? updatedUser : user)),
+            );
             break;
         }
       })
@@ -59,11 +63,8 @@ export class SupabaseService {
         .eq('id', id)
         .single();
 
-      this.user.set(UserModel.toCamelCase(user));
-
       if (error) throw error;
-
-      console.log(this.user());
+      this.user.set(UserModel.toCamelCase(user));
     } catch (error) {
       console.error('Error while loading single user', error);
     }
@@ -81,12 +82,46 @@ export class SupabaseService {
     }
   }
 
-  async deleteUser(id: number) {
+  async deleteUser(id: string) {
     try {
       const { error } = await this.supabase.from('users').delete().eq('id', id);
       if (error) throw error;
     } catch (error) {
       console.error('Error while trying to delete the user', error);
+    }
+  }
+
+  async updateUserName(id: string, data: Partial<User>) {
+    try {
+      const { error } = await this.supabase
+        .from('users')
+        .update({ first_name: data.firstName, last_name: data.lastName })
+        .eq('id', id)
+        .select();
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error while trying to update users name', error);
+    }
+  }
+
+  async updateUserDetails(id: string, data: Partial<User>) {
+    try {
+      const { error } = await this.supabase
+        .from('users')
+        .update({
+          email: data.email,
+          address: data.address,
+          postal_code: data.postalCode,
+          city: data.city,
+          birth_date: data.birthDate,
+        })
+        .eq('id', id)
+        .select();
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error while trying to update user details', error);
     }
   }
 }

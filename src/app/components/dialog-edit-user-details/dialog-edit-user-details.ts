@@ -62,4 +62,21 @@ export class DialogEditUserDetails {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  async onSubmit(): Promise<void> {
+    if (this.userForm.valid && this.data.id) {
+      this.loading = true;
+      this.userForm.disable();
+
+      try {
+        await this.userService.saveUpdatedUserDetails(this.data.id, this.userForm.getRawValue());
+        this.dialogRef.close();
+      } catch (error) {
+        console.error(error);
+      } finally {
+        this.userForm.enable();
+        this.loading = false;
+      }
+    }
+  }
 }

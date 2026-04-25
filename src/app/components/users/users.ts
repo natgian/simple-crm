@@ -27,11 +27,11 @@ export class Users {
     this.dialog.open(DialogAddUser);
   }
 
-  onDeleteUser(id: number) {
+  onDeleteUser(id: string) {
     this.supabaseService.deleteUser(id);
   }
 
-  goToDetail(id: number) {
+  goToDetail(id: string) {
     console.log(id);
   }
 }

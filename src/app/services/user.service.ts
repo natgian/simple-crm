@@ -12,4 +12,12 @@ export class UserService {
   async saveUser(user: User) {
     await this.supabaseService.addUser(new UserModel(user));
   }
+
+  async saveUpdatedUserName(id: string, data: Partial<User>) {
+    await this.supabaseService.updateUserName(id, data);
+  }
+
+  async saveUpdatedUserDetails(id: string, data: Partial<User>) {
+    await this.supabaseService.updateUserDetails(id, data);
+  }
 }
