@@ -32,7 +32,6 @@ import { UserService } from '../../services/user.service';
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
-    MatDatepickerModule,
     MatProgressBarModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -58,10 +57,16 @@ export class DialogAddUser {
     city: ['', [Validators.required, Validators.minLength(2)]],
   });
 
+  /**
+   * Closes the dialog.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  /**
+   * Validates and submits the form, saves the new user and closes the dialog.
+   */
   async onSubmit(): Promise<void> {
     if (this.userForm.valid) {
       this.loading = true;
@@ -80,6 +85,10 @@ export class DialogAddUser {
     }
   }
 
+  /**
+   * Extracts and returns the current form values as a new user object.
+   * @returns - The new user data object
+   */
   getFormData() {
     const formValue = this.userForm.getRawValue();
     const newUser = { ...formValue };
