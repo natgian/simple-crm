@@ -59,10 +59,16 @@ export class DialogEditUserDetails {
     city: [this.data.city, [Validators.required, Validators.minLength(2)]],
   });
 
+  /**
+   * Closes the dialog.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  /**
+   * Validates and submits the form, saves the updated user details and closes the dialog.
+   */
   async onSubmit(): Promise<void> {
     if (this.userForm.valid && this.data.id) {
       this.loading = true;
