@@ -35,7 +35,6 @@ export class DialogEditUserBasics {
   private userService = inject(UserService);
   readonly dialogRef = inject(MatDialogRef<DialogEditUserBasics>);
   private fb = inject(FormBuilder);
-
   public loading = false;
 
   userForm: FormGroup = this.fb.group({
@@ -43,10 +42,16 @@ export class DialogEditUserBasics {
     lastName: [this.data.lastName, [Validators.required, Validators.minLength(2)]],
   });
 
+  /**
+   * Closes the dialog.
+   */
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  /**
+   * Validates and submits the form, saves the updated user and closes the dialog.
+   */
   async onSubmit(): Promise<void> {
     if (this.userForm.valid && this.data.id) {
       this.loading = true;
