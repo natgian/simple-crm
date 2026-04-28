@@ -1,7 +1,7 @@
-export function formatDate(date: Date): string {
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-}
-
+/**
+ * Custom date formats for Angular Material Datepicker.
+ * Displays and parses dates in the format dd.MM.yyyy (01.01.2026).
+ */
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'dd.MM.yyyy',

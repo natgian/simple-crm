@@ -13,7 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MY_DATE_FORMATS } from '../../utils/formatDate';
+import { MY_DATE_FORMATS } from '../../utils/dateFormats';
 import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { UserService } from '../../services/user.service';
 import { UserModel } from '../../models/user.model';
