@@ -30,15 +30,26 @@ export class UserDetail {
   supabaseService = inject(SupabaseService);
   currentUser = this.supabaseService.user;
 
+  /**
+   * Fetches the user by ID from the URL on component initialization.
+   */
   ngOnInit() {
     const userId = this.route.snapshot.paramMap.get('id');
     if (userId) this.supabaseService.getSingleUser(userId);
   }
 
+  /**
+   * Opens a dialog to edit the user's first and last name.
+   * Passes the current user data to prefill the form.
+   */
   openEditBasicsDialog(): void {
     this.dialog.open(DialogEditUserBasics, { data: this.currentUser() });
   }
 
+  /**
+   * Opens a dialog to edit the user's detail information.
+   * Passes the current user data to prefill the form.
+   */
   openEditDetailsDialog(): void {
     this.dialog.open(DialogEditUserDetails, { data: this.currentUser() });
   }
