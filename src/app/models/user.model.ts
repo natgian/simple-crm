@@ -10,6 +10,11 @@ export class UserModel implements User {
   postalCode: string;
   city: string;
 
+  /**
+   * Creates a new UserModel instance with the provided user data.
+   *
+   * @param data - The user data to initialize the model with
+   */
   constructor(data: Partial<User> = {}) {
     this.id = data.id;
     this.firstName = data.firstName ?? '';
@@ -21,6 +26,11 @@ export class UserModel implements User {
     this.city = data.city ?? '';
   }
 
+  /**
+   * Converts the UserModel to a snake case object for database insertion.
+   *
+   * @returns - The new object in snake case
+   */
   toSnakeCase(): Omit<UserDB, 'id'> {
     return {
       first_name: this.firstName,
@@ -33,6 +43,12 @@ export class UserModel implements User {
     };
   }
 
+  /**
+   * Converts a snake case database object to a UserModel instance in camel case.
+   *
+   * @param data - The object from the database to convert
+   * @returns - The new object in camel case
+   */
   static toCamelCase(data: UserDB): UserModel {
     return new UserModel({
       id: data.id,
@@ -46,6 +62,9 @@ export class UserModel implements User {
     });
   }
 
+  /**
+   * Returns a string with the full name (first name and last name).
+   */
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;
   }
