@@ -17,21 +17,25 @@ import { RouterLink } from '@angular/router';
 })
 export class Users {
   readonly dialog = inject(MatDialog);
-  supabaseService = inject(SupabaseService);
+  private supabaseService = inject(SupabaseService);
   users = this.supabaseService.userList;
 
   displayedColumns: string[] = ['name', 'email', 'birth-date', 'city', 'delete-button'];
   dataSource = this.users;
 
+  /**
+   * Opens the dialog to add a new user.
+   */
   openDialog(): void {
     this.dialog.open(DialogAddUser);
   }
 
+  /**
+   * Deletes the user.
+   *
+   * @param id - The ID of the current user
+   */
   onDeleteUser(id: string) {
     this.supabaseService.deleteUser(id);
-  }
-
-  goToDetail(id: string) {
-    console.log(id);
   }
 }
