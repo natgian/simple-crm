@@ -33,10 +33,12 @@ A simple CRM demo application built with Angular and Supabase. This project was 
    `npm install`
 
 3. Add your Supabase credentials in environment.ts
+   ```
    export const environment = {
    supabaseURL: 'YOUR_SUPABASE_URL',
    supabaseKey: 'YOUR_SUPABASE_KEY',
    };
+   ```
 
-4. Start the development server
+5. Start the development server
    `ng serve`
