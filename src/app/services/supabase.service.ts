@@ -15,7 +15,7 @@ export class SupabaseService {
   user = signal<UserModel | null>(null);
 
   /**
-   *
+   * Fetches all users on initialization and sets up realtime channel to detect database changes.
    */
   constructor() {
     this.getAllUsers().catch((error) => console.error('Error loading users:', error));
@@ -45,14 +45,14 @@ export class SupabaseService {
   }
 
   /**
-   *
+   * Removes the realtime chanel when the service is destroyed.
    */
   ngOnDestroy() {
     this.supabase.removeChannel(this.userChannels);
   }
 
   /**
-   *
+   * Fetches all users from the database and updates the userList signal.
    */
   async getAllUsers() {
     try {
@@ -65,8 +65,9 @@ export class SupabaseService {
   }
 
   /**
+   * Fetches a single user from the database and sets the user signal.
    *
-   * @param id
+   * @param id - The ID of the user to fetch.
    */
   async getSingleUser(id: string) {
     try {
@@ -84,16 +85,15 @@ export class SupabaseService {
   }
 
   /**
+   * Adds a user to the database.
    *
-   * @param user
-   * @returns
+   * @param user - The user to add
    */
   async addUser(user: UserModel) {
     try {
       const userData = user.toSnakeCase();
-      const { data, error } = await this.supabase.from('users').insert([userData]).select();
+      const { error } = await this.supabase.from('users').insert([userData]).select();
       if (error) throw error;
-      return data;
     } catch (error) {
       console.error('Error while adding user', error);
       throw error;
@@ -101,8 +101,9 @@ export class SupabaseService {
   }
 
   /**
+   * Deletes a user from the database.
    *
-   * @param id
+   * @param id - The ID of the user to delete
    */
   async deleteUser(id: string) {
     try {
@@ -114,17 +115,17 @@ export class SupabaseService {
   }
 
   /**
+   * Updates the first name and last name of a user in the database.
    *
-   * @param id
-   * @param data
+   * @param id - The ID of the user to update
+   * @param data - Object containing the updated firstName and lastName
    */
   async updateUserName(id: string, data: Partial<User>) {
     try {
       const { error } = await this.supabase
         .from('users')
         .update({ first_name: data.firstName, last_name: data.lastName })
-        .eq('id', id)
-        .select();
+        .eq('id', id);
 
       if (error) throw error;
     } catch (error) {
@@ -133,9 +134,11 @@ export class SupabaseService {
   }
 
   /**
+   * Updates the user details in the database.
    *
-   * @param id
-   * @param data
+   * @param id - The ID of the user to update
+   * @param data - Object containing the updated details (email, address, postalCode,
+   * city and birthDate)
    */
   async updateUserDetails(id: string, data: Partial<User>) {
     try {
@@ -148,8 +151,7 @@ export class SupabaseService {
           city: data.city,
           birth_date: data.birthDate,
         })
-        .eq('id', id)
-        .select();
+        .eq('id', id);
 
       if (error) throw error;
     } catch (error) {
