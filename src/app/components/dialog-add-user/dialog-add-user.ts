@@ -14,7 +14,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MY_DATE_FORMATS } from '../../utils/dateFormats';
 import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
-import { UserService } from '../../services/user.service';
+import { SupabaseService } from '../../services/supabase.service';
+import { UserModel } from '../../models/user.model';
 
 @Component({
   selector: 'app-dialog-add-user',
@@ -41,7 +42,7 @@ import { UserService } from '../../services/user.service';
 export class DialogAddUser {
   readonly dialogRef = inject(MatDialogRef<DialogAddUser>);
   private fb = inject(FormBuilder);
-  private userService = inject(UserService);
+  private supabaseService = inject(SupabaseService);
   public loading = false;
 
   userForm: FormGroup = this.fb.group({
@@ -74,7 +75,7 @@ export class DialogAddUser {
       const newUser = this.getFormData();
 
       try {
-        await this.userService.saveUser(newUser);
+        await this.supabaseService.addUser(new UserModel(newUser));
         this.dialogRef.close();
       } catch (error) {
         console.error(error);

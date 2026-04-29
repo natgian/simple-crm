@@ -14,6 +14,9 @@ export class SupabaseService {
   userList = signal<UserModel[]>([]);
   user = signal<UserModel | null>(null);
 
+  /**
+   *
+   */
   constructor() {
     this.getAllUsers().catch((error) => console.error('Error loading users:', error));
 
@@ -41,10 +44,16 @@ export class SupabaseService {
       .subscribe();
   }
 
+  /**
+   *
+   */
   ngOnDestroy() {
     this.supabase.removeChannel(this.userChannels);
   }
 
+  /**
+   *
+   */
   async getAllUsers() {
     try {
       const { data: users, error } = await this.supabase.from('users').select('*');
@@ -55,6 +64,10 @@ export class SupabaseService {
     }
   }
 
+  /**
+   *
+   * @param id
+   */
   async getSingleUser(id: string) {
     try {
       const { data: user, error } = await this.supabase
@@ -70,6 +83,11 @@ export class SupabaseService {
     }
   }
 
+  /**
+   *
+   * @param user
+   * @returns
+   */
   async addUser(user: UserModel) {
     try {
       const userData = user.toSnakeCase();
@@ -82,6 +100,10 @@ export class SupabaseService {
     }
   }
 
+  /**
+   *
+   * @param id
+   */
   async deleteUser(id: string) {
     try {
       const { error } = await this.supabase.from('users').delete().eq('id', id);
@@ -91,6 +113,11 @@ export class SupabaseService {
     }
   }
 
+  /**
+   *
+   * @param id
+   * @param data
+   */
   async updateUserName(id: string, data: Partial<User>) {
     try {
       const { error } = await this.supabase
@@ -105,6 +132,11 @@ export class SupabaseService {
     }
   }
 
+  /**
+   *
+   * @param id
+   * @param data
+   */
   async updateUserDetails(id: string, data: Partial<User>) {
     try {
       const { error } = await this.supabase

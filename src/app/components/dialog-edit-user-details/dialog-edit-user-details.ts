@@ -15,7 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MY_DATE_FORMATS } from '../../utils/dateFormats';
 import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
-import { UserService } from '../../services/user.service';
+import { SupabaseService } from '../../services/supabase.service';
 import { UserModel } from '../../models/user.model';
 
 @Component({
@@ -45,7 +45,7 @@ export class DialogEditUserDetails {
   readonly data = inject<UserModel>(MAT_DIALOG_DATA);
   readonly dialogRef = inject(MatDialogRef<DialogEditUserDetails>);
   private fb = inject(FormBuilder);
-  private userService = inject(UserService);
+  private supabaseService = inject(SupabaseService);
   public loading = false;
 
   userForm: FormGroup = this.fb.group({
@@ -75,7 +75,7 @@ export class DialogEditUserDetails {
       this.userForm.disable();
 
       try {
-        await this.userService.saveUpdatedUserDetails(this.data.id, this.userForm.getRawValue());
+        await this.supabaseService.updateUserDetails(this.data.id, this.userForm.getRawValue());
         this.dialogRef.close();
       } catch (error) {
         console.error(error);

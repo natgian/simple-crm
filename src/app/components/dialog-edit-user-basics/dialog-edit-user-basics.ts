@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, Validators, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { UserService } from '../../services/user.service';
+import { SupabaseService } from '../../services/supabase.service';
 import { UserModel } from '../../models/user.model';
 
 @Component({
@@ -32,7 +32,7 @@ import { UserModel } from '../../models/user.model';
 })
 export class DialogEditUserBasics {
   readonly data = inject<UserModel>(MAT_DIALOG_DATA);
-  private userService = inject(UserService);
+  private supabaseService = inject(SupabaseService);
   readonly dialogRef = inject(MatDialogRef<DialogEditUserBasics>);
   private fb = inject(FormBuilder);
   public loading = false;
@@ -58,7 +58,7 @@ export class DialogEditUserBasics {
       this.userForm.disable();
 
       try {
-        await this.userService.saveUpdatedUserName(this.data.id, this.userForm.getRawValue());
+        await this.supabaseService.updateUserName(this.data.id, this.userForm.getRawValue());
         this.dialogRef.close();
       } catch (error) {
         console.error(error);
